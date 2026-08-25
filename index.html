@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Data Penjualan Chillmoo</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="logo">
+        <span>Chill</span><b>moo</b>
+    </div>
+
+    <div class="header-title">
+        <h1>Data Penjualan</h1>
+        <p>Kelola penjualan dengan mudah</p>
+    </div>
+
+</header>
+
+
+
+<main class="container">
+
+
+    <!-- RINGKASAN -->
+
+    <section class="summary">
+
+        <div class="summary-card blue">
+
+            <span>Total Pesanan</span>
+
+            <strong id="totalSemuaPesanan">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card pink">
+
+            <span>Total Penjualan</span>
+
+            <strong id="totalSemuaPenjualan">
+                Rp 0
+            </strong>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- FORM -->
+
+    <section class="card">
+
+        <h2>Input Penjualan</h2>
+
+
+        <form id="formPenjualan">
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        No Pesanan
+                    </label>
+
+                    <input
+                        type="text"
+                        id="noPesanan"
+                        placeholder="Contoh: 001"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Tanggal
+                    </label>
+
+                    <input
+                        type="date"
+                        id="tanggal"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Cone Besar
+                    </label>
+
+                    <input
+                        type="number"
+                        id="coneBesar"
+                        min="0"
+                        value="0"
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Cone Kecil
+                    </label>
+
+                    <input
+                        type="number"
+                        id="coneKecil"
+                        min="0"
+                        value="0"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- PREVIEW -->
+
+            <div class="preview">
+
+                <div>
+
+                    <span>
+                        Total Pesanan
+                    </span>
+
+                    <strong id="previewTotal">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Total Harga
+                    </span>
+
+                    <strong id="previewHarga">
+                        Rp 0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <button
+                type="submit"
+                class="btn-simpan"
+                id="btnSimpan"
+            >
+
+                Simpan Penjualan
+
+            </button>
+
+
+        </form>
+
+    </section>
+
+
+
+    <!-- DATA PENJUALAN -->
+
+    <section class="card">
+
+        <div class="table-header">
+
+            <h2>
+                Riwayat Penjualan
+            </h2>
+
+            <button
+                class="btn-refresh"
+                onclick="loadData()"
+            >
+                ↻ Refresh
+            </button>
+
+        </div>
+
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Besar</th>
+                        <th>Kecil</th>
+                        <th>Total</th>
+                        <th>Harga</th>
+                        <th>Total Penjualan</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="dataPenjualan">
+
+                    <tr>
+
+                        <td colspan="7">
+                            Memuat data...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<div
+    id="toast"
+    class="toast"
+>
+    Data berhasil disimpan
+</div>
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
