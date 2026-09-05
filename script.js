@@ -613,7 +613,7 @@ function tampilkanRekap(
     }
 
 
-     // =========================
+    // =========================
     // REKAP BULANAN
     // =========================
 
@@ -695,10 +695,11 @@ function tampilkanRekap(
     rekapHariIni,
     rekapBulanIni,
     rekapBulanan
-) {
+) 
+{
 
-    // REKAP HARI INI
-    if (rekapHariIni) {
+    if (rekapHariIni) 
+    {
 
         const jumlahPesanan =
             Number(rekapHariIni.jumlahPesanan) || 0;
@@ -743,8 +744,6 @@ function tampilkanRekap(
         }
     }
 
-
-    // REKAP BULANAN
     const tabel =
         document.getElementById(
             "dataRekapBulanan"
@@ -777,40 +776,8 @@ function tampilkanRekap(
         const row =
             document.createElement("tr");
 
-        let bulan = item.bulan;
-
-        // Jika Google Sheets mengirim tanggal ISO
-        if (
-    typeof bulan === "string" &&
-    bulan.includes("T")
-) {
-
-    const tanggal =
-        new Date(bulan);
-
-    if (!isNaN(tanggal)) {
-
-        // Kembalikan ke WIB
-        const waktuWIB =
-            new Date(
-                tanggal.getTime() +
-                (7 * 60 * 60 * 1000)
-            );
-
-        const tahun =
-            waktuWIB.getUTCFullYear();
-
-        const nomorBulan =
-            waktuWIB.getUTCMonth() + 1;
-
-        bulan =
-            `${tahun}-${String(nomorBulan)
-                .padStart(2, "0")}`;
-    }
-        }
-
         row.innerHTML = `
-            <td>${bulan}</td>
+            <td>${item.bulan}</td>
             <td>${Number(item.jumlahPesanan) || 0}</td>
             <td>${Number(item.coneBesar) || 0}</td>
             <td>${Number(item.coneKecil) || 0}</td>
@@ -822,6 +789,4 @@ function tampilkanRekap(
 
         tabel.appendChild(row);
     });
-}    
-
 }
