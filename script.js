@@ -613,7 +613,7 @@ function tampilkanRekap(
     }
 
 
-    // =========================
+     // =========================
     // REKAP BULANAN
     // =========================
 
@@ -822,4 +822,6 @@ function tampilkanRekap(
 
         tabel.appendChild(row);
     });
+}    
+
 }
