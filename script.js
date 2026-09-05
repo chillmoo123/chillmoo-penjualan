@@ -690,3 +690,128 @@ function tampilkanRekap(
     });
 
 }
+
+function tampilkanRekap(
+    rekapHariIni,
+    rekapBulanIni,
+    rekapBulanan
+) {
+
+    // REKAP HARI INI
+    if (rekapHariIni) {
+
+        const jumlahPesanan =
+            Number(rekapHariIni.jumlahPesanan) || 0;
+
+        const coneBesar =
+            Number(rekapHariIni.coneBesar) || 0;
+
+        const coneKecil =
+            Number(rekapHariIni.coneKecil) || 0;
+
+        const penjualan =
+            Number(rekapHariIni.totalPenjualan) || 0;
+
+        const elPesanan =
+            document.getElementById(
+                "rekapHariIniPesanan"
+            );
+
+        const elCone =
+            document.getElementById(
+                "rekapHariIniCone"
+            );
+
+        const elPenjualan =
+            document.getElementById(
+                "rekapHariIniPenjualan"
+            );
+
+        if (elPesanan) {
+            elPesanan.textContent =
+                jumlahPesanan;
+        }
+
+        if (elCone) {
+            elCone.textContent =
+                `Besar: ${coneBesar} • Kecil: ${coneKecil}`;
+        }
+
+        if (elPenjualan) {
+            elPenjualan.textContent =
+                formatRupiah(penjualan);
+        }
+    }
+
+
+    // REKAP BULANAN
+    const tabel =
+        document.getElementById(
+            "dataRekapBulanan"
+        );
+
+    if (!tabel) {
+        return;
+    }
+
+    if (
+        !rekapBulanan ||
+        rekapBulanan.length === 0
+    ) {
+
+        tabel.innerHTML = `
+            <tr>
+                <td colspan="6">
+                    Belum ada rekap bulanan
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    tabel.innerHTML = "";
+
+    rekapBulanan.forEach(item => {
+
+        const row =
+            document.createElement("tr");
+
+        let bulan = item.bulan;
+
+        // Jika Google Sheets mengirim tanggal ISO
+        if (
+            typeof bulan === "string" &&
+            bulan.includes("T")
+        ) {
+            const tanggal =
+                new Date(bulan);
+
+            if (!isNaN(tanggal)) {
+
+                const tahun =
+                    tanggal.getUTCFullYear();
+
+                const nomorBulan =
+                    tanggal.getUTCMonth() + 1;
+
+                bulan =
+                    `${tahun}-${String(nomorBulan)
+                        .padStart(2, "0")}`;
+            }
+        }
+
+        row.innerHTML = `
+            <td>${bulan}</td>
+            <td>${Number(item.jumlahPesanan) || 0}</td>
+            <td>${Number(item.coneBesar) || 0}</td>
+            <td>${Number(item.coneKecil) || 0}</td>
+            <td>${Number(item.totalPesanan) || 0}</td>
+            <td>${formatRupiah(
+                Number(item.totalPenjualan) || 0
+            )}</td>
+        `;
+
+        tabel.appendChild(row);
+    });
+}
