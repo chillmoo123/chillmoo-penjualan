@@ -781,24 +781,32 @@ function tampilkanRekap(
 
         // Jika Google Sheets mengirim tanggal ISO
         if (
-            typeof bulan === "string" &&
-            bulan.includes("T")
-        ) {
-            const tanggal =
-                new Date(bulan);
+    typeof bulan === "string" &&
+    bulan.includes("T")
+) {
 
-            if (!isNaN(tanggal)) {
+    const tanggal =
+        new Date(bulan);
 
-                const tahun =
-                    tanggal.getUTCFullYear();
+    if (!isNaN(tanggal)) {
 
-                const nomorBulan =
-                    tanggal.getUTCMonth() + 1;
+        // Kembalikan ke WIB
+        const waktuWIB =
+            new Date(
+                tanggal.getTime() +
+                (7 * 60 * 60 * 1000)
+            );
 
-                bulan =
-                    `${tahun}-${String(nomorBulan)
-                        .padStart(2, "0")}`;
-            }
+        const tahun =
+            waktuWIB.getUTCFullYear();
+
+        const nomorBulan =
+            waktuWIB.getUTCMonth() + 1;
+
+        bulan =
+            `${tahun}-${String(nomorBulan)
+                .padStart(2, "0")}`;
+    }
         }
 
         row.innerHTML = `
