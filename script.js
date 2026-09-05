@@ -187,6 +187,19 @@ function loadData() {
                 response.data
             );
 
+          if (response.nomorBerikutnya) {
+
+    noPesanan.value =
+        response.nomorBerikutnya;
+
+          }
+          
+          tampilkanRekap(
+            response.rekapHariIni,
+            response.rekapBulanIni,
+            response.rekapBulanan
+          );
+
 
             delete window[
                 callbackName
@@ -554,3 +567,126 @@ function tampilkanError(pesan) {
 hitungPreview();
 
 loadData();
+
+function tampilkanRekap(
+    rekapHariIni,
+    rekapBulanIni,
+    rekapBulanan
+) {
+
+    // =========================
+    // REKAP HARIAN
+    // =========================
+
+    if (rekapHariIni) {
+
+        const jumlahPesanan =
+            Number(rekapHariIni.jumlahPesanan) || 0;
+
+        const coneBesar =
+            Number(rekapHariIni.coneBesar) || 0;
+
+        const coneKecil =
+            Number(rekapHariIni.coneKecil) || 0;
+
+        const penjualan =
+            Number(rekapHariIni.totalPenjualan) || 0;
+
+
+        document.getElementById(
+            "rekapHariIniPesanan"
+        ).textContent =
+            jumlahPesanan;
+
+
+        document.getElementById(
+            "rekapHariIniCone"
+        ).textContent =
+            `Besar: ${coneBesar} • Kecil: ${coneKecil}`;
+
+
+        document.getElementById(
+            "rekapHariIniPenjualan"
+        ).textContent =
+            formatRupiah(penjualan);
+
+    }
+
+
+    // =========================
+    // REKAP BULANAN
+    // =========================
+
+    const tabel =
+        document.getElementById(
+            "dataRekapBulanan"
+        );
+
+
+    if (!tabel) {
+        return;
+    }
+
+
+    if (
+        !rekapBulanan ||
+        rekapBulanan.length === 0
+    ) {
+
+        tabel.innerHTML = `
+            <tr>
+                <td colspan="6">
+                    Belum ada rekap bulanan
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    tabel.innerHTML = "";
+
+
+    rekapBulanan.forEach(item => {
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+                ${item.bulan}
+            </td>
+
+            <td>
+                ${Number(item.jumlahPesanan) || 0}
+            </td>
+
+            <td>
+                ${Number(item.coneBesar) || 0}
+            </td>
+
+            <td>
+                ${Number(item.coneKecil) || 0}
+            </td>
+
+            <td>
+                ${Number(item.totalPesanan) || 0}
+            </td>
+
+            <td>
+                ${formatRupiah(
+                    Number(item.totalPenjualan) || 0
+                )}
+            </td>
+
+        `;
+
+
+        tabel.appendChild(row);
+
+    });
+
+}
